@@ -6,8 +6,8 @@
 </head>
 <body>
     <div id="app"></div>
- 
-    <script type="module">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" data-type="module">
 
         // импортируем модули React 19 из ESM CDN
         import React from "https://esm.sh/react@19?dev";
@@ -16,11 +16,10 @@
         const rootNode = document.getElementById("app");    // элемент для рендеринга приложения React
         // получаем корневой элемент 
         const root = ReactDOM.createRoot(rootNode);
-        // создаем заголовок - элемент h1
-        const element = React.createElement("h1", null, "Hello! Начало работы с React");
+        const element = <h1>Основы JSX</h1>  // элемент, который мы хотим создать
         // рендеринг в корневой элемент
         root.render(element);
-        
+
    </script>
 </body>
 </html>
