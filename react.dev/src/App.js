@@ -26,7 +26,7 @@ export default function Board() {
   }
 
 
-    const winner = calculateWinner(squares);
+  const winner = calculateWinner(squares);
   let status;
   if (winner) {
     status = "Winner: " + winner;
@@ -34,7 +34,7 @@ export default function Board() {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
 
-  
+
   return (
     <>
       <div className="board-row">
