@@ -61,7 +61,8 @@ export default function Game() {
 
 
   function handlePlay(nextSquares) {
-    // TODO
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
   }
 
 
