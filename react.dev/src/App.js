@@ -1,16 +1,26 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-function Square({ value, onSquareClick }) {
-  return <button className="square" onClick={onSquareClick}>{value}</button>;
+function Square({ value, onSquareClick, winner }) {
+  if (winner) {
+    return (
+      <button className="square sqr_win" onClick={onSquareClick}>
+        {value}
+      </button>
+    );
+  } else {
+    return (
+      <button className="square" onClick={onSquareClick}>
+        {value}
+      </button>
+    );
+  }
 }
 
 function Board({ xIsNext, squares, onPlay }) {
   function handleClick(i) {
-
-    if (squares[i] || calculateWinner(squares)) {
+    if (calculateWinner(squares).winner || squares[i]) {
       return;
     }
-
     const nextSquares = squares.slice();
     if (xIsNext) {
       nextSquares[i] = "X";
@@ -21,8 +31,8 @@ function Board({ xIsNext, squares, onPlay }) {
     onPlay(nextSquares);
   }
 
-
-  const winner = calculateWinner(squares);
+  const [winner, lines_w] = calculateWinner(squares);
+  console.log(winner, lines_w);
   let status;
   if (winner) {
     status = "Победа: " + winner;
@@ -30,15 +40,19 @@ function Board({ xIsNext, squares, onPlay }) {
     status = "Следующий игрок: " + (xIsNext ? "X" : "O");
   }
 
- return (
+  return (
     <>
       <div className="status">{status}</div>
       {[...Array(3)].map((_, rowIndex) => (
         <div className="board-row">
           {[...Array(3)].map((_, colIndex) => {
             const index = rowIndex * 3 + colIndex;
+            let winner_fl = false;
+            if (lines_w != null) {
+              winner_fl = lines_w.some((elem_w) => elem_w === index);
+            }
             return (
-              <Square value={squares[index]} onSquareClick={() => handleClick(index)} />
+              < Square value={squares[index]} onSquareClick={() => handleClick(index)} winner={winner_fl} />
             );
           })}
         </div>
@@ -80,7 +94,6 @@ export default function Game() {
     );
   });
 
-
   return (
     <div className="game">
       <div className="game-board">
@@ -103,18 +116,21 @@ function calculateWinner(squares) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      console.log({ winner: squares[a], lines: lines });
+      return [squares[a], lines[i]];
     }
   }
-  if(!squares.some(function (el) {
-    return el === null;
-  })){
+  if (
+    !squares.some(function (element) {
+      return element === null;
+    })
+  ) {
     return "Ничья";
   }
-  return null;
+  return [null, null];
 }
