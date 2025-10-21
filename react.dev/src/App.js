@@ -111,5 +111,10 @@ function calculateWinner(squares) {
       return squares[a];
     }
   }
+  if(!squares.some(function (el) {
+    return el === null;
+  })){
+    return "Ничья";
+  }
   return null;
 }
