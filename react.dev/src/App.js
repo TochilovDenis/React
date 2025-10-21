@@ -125,12 +125,8 @@ function calculateWinner(squares) {
       return [squares[a], lines[i]];
     }
   }
-  if (
-    !squares.some(function (element) {
-      return element === null;
-    })
-  ) {
-    return "Ничья";
+  if (!squares.some((element) => element === null)) {
+    return ["Ничья", null];
   }
   return [null, null];
 }
