@@ -44,7 +44,7 @@ function Board({ xIsNext, squares, onPlay }) {
     <>
       <div className="status">{status}</div>
       {[...Array(3)].map((_, rowIndex) => (
-        <div className="board-row">
+        <div key={rowIndex} className="board-row">
           {[...Array(3)].map((_, colIndex) => {
             const index = rowIndex * 3 + colIndex;
             let winner_fl = false;
@@ -52,7 +52,7 @@ function Board({ xIsNext, squares, onPlay }) {
               winner_fl = lines_w.some((elem_w) => elem_w === index);
             }
             return (
-              < Square value={squares[index]} onSquareClick={() => handleClick(index)} winner={winner_fl} />
+              < Square key={index} value={squares[index]} onSquareClick={() => handleClick(index)} winner={winner_fl} />
             );
           })}
         </div>
@@ -82,15 +82,27 @@ export default function Game() {
 
   const moves = history.map((squares, move) => {
     let description;
+
+    let step_index = null;
+    if (move != 0) {
+      for (let y = 0; y < squares.length; y++) {
+        if (history[move][y] != history[move - 1][y]) {
+          step_index = y;
+        }
+      }
+    }
+
     if (move > 0) {
-      description = 'Идем дальше #' + move;
+      description = 'Ваш ход #' + move;
     } else {
       description = 'Начать игру';
     }
     return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
-      </li>
+      <tr key={move}>
+        <td>{step_index}</td>
+        <td>{squares[step_index]}</td>
+        <td><button onClick={() => jumpTo(move)}>{description}</button></td>
+      </tr>
     );
   });
 
@@ -100,7 +112,16 @@ export default function Game() {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">index</th>
+              <th scope="col">player</th>
+              <th scope="col">jumpTo</th>
+            </tr>
+          </thead>
+          <tbody>{moves}</tbody>
+        </table>
       </div>
     </div>
   );
