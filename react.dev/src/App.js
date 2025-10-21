@@ -30,18 +30,19 @@ function Board({ xIsNext, squares, onPlay }) {
     status = "Следующий игрок: " + (xIsNext ? "X" : "O");
   }
 
-  return (
+ return (
     <>
       <div className="status">{status}</div>
-      {[...Array(3)].map((_, rowIndex) => {
+      {[...Array(3)].map((_, rowIndex) => (
         <div className="board-row">
           {[...Array(3)].map((_, colIndex) => {
             const index = rowIndex * 3 + colIndex;
             return (
-              <Square value={squares[colIndex]} onSquareClick={() => handleClick(0)} />);
+              <Square value={squares[index]} onSquareClick={() => handleClick(index)} />
+            );
           })}
         </div>
-      })}
+      ))}
     </>
   );
 }
