@@ -62,7 +62,7 @@ function SearchBar() {
       <label>
         <input type="checkbox" />
         {' '}
-        Only show products in stock
+        Показывать только товары, имеющиеся на складе
       </label>
     </form>
   );
