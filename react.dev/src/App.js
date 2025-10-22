@@ -65,6 +65,7 @@ function Board({ xIsNext, squares, onPlay }) {
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
+  const [isAscending, setIsAscending] = useState(true);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -80,13 +81,17 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
-  const moves = history.map((squares, move) => {
-    let description;
+  const toggleSortOrder = () => {
+    setIsAscending(!isAscending);
+  };
 
+  let moves = history.map((squares, move) => {
+    let description;
+    
     let step_index = null;
-    if (move != 0) {
+    if (move !== 0) {
       for (let y = 0; y < squares.length; y++) {
-        if (history[move][y] != history[move - 1][y]) {
+        if (history[move][y] !== history[move - 1][y]) {
           step_index = y;
         }
       }
@@ -97,14 +102,25 @@ export default function Game() {
     } else {
       description = 'Начать игру';
     }
-    return (
-      <tr key={move}>
-        <td>{step_index}</td>
-        <td>{squares[step_index]}</td>
-        <td><button onClick={() => jumpTo(move)}>{description}</button></td>
-      </tr>
-    );
+    return {
+      move,
+      step_index,
+      player: squares[step_index],
+      description,
+      element: (
+        <tr key={move}>
+          <td>{step_index}</td>
+          <td>{squares[step_index]}</td>
+          <td><button onClick={() => jumpTo(move)}>{description}</button></td>
+        </tr>
+      )
+    };
   });
+
+  // Сортируем ходы в зависимости от выбранного порядка
+  if (!isAscending) {
+    moves = moves.reverse();
+  }
 
   return (
     <div className="game">
@@ -112,6 +128,9 @@ export default function Game() {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
+        <button onClick={toggleSortOrder}>
+          {isAscending ? "Сортировка по убыванию" : "Сортировка по возрастанию"}
+        </button>
         <table>
           <thead>
             <tr>
@@ -120,7 +139,7 @@ export default function Game() {
               <th scope="col">jumpTo</th>
             </tr>
           </thead>
-          <tbody>{moves}</tbody>
+          <tbody>{moves.map(item => item.element)}</tbody>
         </table>
       </div>
     </div>
