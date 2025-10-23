@@ -7,23 +7,23 @@ function Square({ value, onSquareClick }) {
         {value}
       </button>
     );
-  } else if (value == "O") {
+  }
+  else if (value == "O") {
     return (
-      <button className="square sqr_win" onClick={onSquareClick}>
+      <button className="square  sqr_win" onClick={onSquareClick}>
         {value}
       </button>
     );
   }
 }
 
-function Board({ pl_xIsNext, arena, onPlay, move_pl, onChangeMove }) {
-
+function Board({ pl_IsNext, arena, onPlay, move_pl, onChangeMove }) {
   let status = "";
-  if (pl_xIsNext == "1pl0") {
-    status = "Ход игрока" + 1;
+  if (pl_IsNext == "1plO") {
+    status = "Ход игрока " + 1;
   }
-  else if (pl_xIsNext == "2pl0") {
-    status = "Ход игрока" + 2;
+  if (pl_IsNext == "2plO") {
+    status = "Ход игрока " + 2;
   }
 
   function handleClick(i) {
@@ -48,11 +48,13 @@ function Board({ pl_xIsNext, arena, onPlay, move_pl, onChangeMove }) {
             // if (lines_w != null) {
             //   winner_fl = lines_w.some((elem_w) => elem_w === index);
             // }
+
             return (
-              < Square
+              <Square
                 key={index}
                 value={arena[index]}
                 onSquareClick={() => handleClick(index)}
+
               />
             );
           })}
@@ -62,37 +64,36 @@ function Board({ pl_xIsNext, arena, onPlay, move_pl, onChangeMove }) {
   );
 }
 
-
 export default function Game() {
-  const [arena_pl1, setArena_pl1] = useState(Array(100).fill(null));
-  const [arena_pl2, setArena_pl2] = useState(Array(100).fill(null));
+  const [arena_pl1, setArena_pl1] = useState(Array(100).fill(null))
+  const [arena_pl2, setArena_pl2] = useState(Array(100).fill(null))
 
-  const [pl_xIsNext, setIsNext] = useState("1pl0");
+  const [pl_IsNext, setPlIsNext] = useState("1plO");
 
   function changeMove(value) {
     setMove_pl(value);
   }
 
   function handlePlay(move_pl, field) {
-    if (move_pl == "pl0") {
+    if (move_pl == "p1O") {
       const nextArena = arena_pl1.slice();
       nextArena[field] = "O";
-      setArena_pl1(nextArena);
+      setArena_pl1(nextArena)
     }
-    else if (move_pl == "p20") {
+    else if (move_pl == "p2O") {
       const nextArena = arena_pl2.slice();
       nextArena[field] = "O";
-      setArena_pl2(nextArena);
+      setArena_pl2(nextArena)
     }
   }
 
   return (
     <div className="game">
       <div key="arena_pl1" className="game-board">
-        <Board pl_xIsNext={pl_xIsNext} arena={arena_pl1} onPlay={handlePlay} move_pl={"1"} />
+        <Board pl_IsNext={pl_IsNext} arena={arena_pl1} onPlay={handlePlay} move_pl={"1"} />
       </div>
       <div key="arena_pl2" className="game-board">
-        <Board pl_xIsNext={pl_xIsNext} arena={arena_pl2} onPlay={handlePlay} move_pl={"2"} />
+        <Board pl_IsNext={pl_IsNext} arena={arena_pl2} onPlay={handlePlay} move_pl={"2"} />
       </div>
       <div className="game-info">
         <table>
@@ -100,10 +101,10 @@ export default function Game() {
             <tr>
               <th scope="col">index</th>
               <th scope="col">player</th>
-              <th scope="col">jumpTo</th>
+              <th scope="col">jump_to</th>
             </tr>
           </thead>
-          {/* <tbody>{moves.map(item => item.element)}</tbody> */}
+          {/* <tbody>{moves}</tbody> */}
         </table>
       </div>
     </div>
