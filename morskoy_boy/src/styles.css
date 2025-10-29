@@ -70,9 +70,17 @@ body {
   text-align: center;
   width: 34px;
 }
-
-.sqr_win {
-  background: green;
+.sqr_place {
+  background-color: green;
+}
+.sqr_miss {
+  background-color: rgb(109, 109, 255);
+}
+.sqr_hit{
+  background-color: orange;
+}
+.sqr_kill {
+  background-color: red;
 }
 
 .board-row:after {
@@ -84,9 +92,11 @@ body {
 .status {
   margin-bottom: 10px;
 }
+
 .game {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .game-info {

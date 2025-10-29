@@ -1,40 +1,45 @@
 import { useState } from "react";
 
-function Square({ value, onSquareClick }) {
-  if (value == null) {
+function Square({ value, status, onSquareClick }) {
+  if (value == "X") {
+    return <button className="square sqr_hit" onClick={onSquareClick}></button>;
+  } else if (value == "M") {
     return (
-      <button className="square" onClick={onSquareClick}>
-        {value}
-      </button>
+      <button className="square sqr_miss" onClick={onSquareClick}></button>
     );
-  }
-  else if (value == "O") {
+  } else if (value == "C") {
     return (
-      <button className="square  sqr_win" onClick={onSquareClick}>
-        {value}
-      </button>
+      <button className="square sqr_kill" onClick={onSquareClick}></button>
+    );
+  } else if (value == null || status == 2) {
+    return <button className="square" onClick={onSquareClick}></button>;
+  } else if (value == "O") {
+    return (
+      <button className="square  sqr_place" onClick={onSquareClick}></button>
     );
   }
 }
 
-function Board({ pl_IsNext, arena, onPlay, move_pl, onChangeMove }) {
+function Board({ pl_IsNext, arena, onPlay, name }) {
+  console.log(arena);
+
   let status = "";
-  if (pl_IsNext == "1plO") {
+  let status_area = 1;
+
+  if (pl_IsNext.indexOf("p1") >= 0) {
     status = "Ход игрока " + 1;
   }
-  if (pl_IsNext == "2plO") {
+  if (pl_IsNext.indexOf("p2") >= 0) {
     status = "Ход игрока " + 2;
   }
 
+  //p1_S/p2_S
+  if (pl_IsNext.indexOf("S") >= 0) {
+    status_area = 2;
+  }
+
   function handleClick(i) {
-    /*
-    null - пусто поле
-      o  - выставлен корабль
-      s  - выстрел
-      x  - попадание
-      c  - убит 
-    */
-    onPlay("p" + move_pl + "O", i);
+    onPlay(pl_IsNext, i);
   }
 
   return (
@@ -45,16 +50,12 @@ function Board({ pl_IsNext, arena, onPlay, move_pl, onChangeMove }) {
           {[...Array(10)].map((_, colIndex) => {
             const index = rowIndex * 10 + colIndex;
             let winner_fl = false;
-            // if (lines_w != null) {
-            //   winner_fl = lines_w.some((elem_w) => elem_w === index);
-            // }
-
             return (
               <Square
                 key={index}
                 value={arena[index]}
+                status={status_area}
                 onSquareClick={() => handleClick(index)}
-
               />
             );
           })}
@@ -65,48 +66,93 @@ function Board({ pl_IsNext, arena, onPlay, move_pl, onChangeMove }) {
 }
 
 export default function Game() {
-  const [arena_pl1, setArena_pl1] = useState(Array(100).fill(null))
-  const [arena_pl2, setArena_pl2] = useState(Array(100).fill(null))
+  //Поля игроков
+  // null - пустое поле
+  // O  -    Выставлен корабль
+  // M  -    Промах
+  // X  -    Попадание
+  // C  -    Убит
+  const [arena_pl1, setArena_pl1] = useState(Array(100).fill(null));
+  const [arena_pl2, setArena_pl2] = useState(Array(100).fill(null));
 
-  const [pl_IsNext, setPlIsNext] = useState("1plO");
+  // Состояние игры/Статус игры
+  // состояния pl_IsNext
+  //1. 1 игрок выставляет корабли  -- p1_O
+  //1.1 переход хода 2 игроку
+  //2. 2 игрок выставляет корабли  -- p2_O
+  //2.1 переход хода 1 игроку
+  //3. стреляет 1 игрок  -- p1_S
+  //4. поподание 1 игрок ->3  -- p1_X
+  //5. промах 1 игрок ->6    -- p1_M
+  //6. стреляет 2 игрок    -- p2_S
+  //7. поподание 2 игрок ->6 -- p2_X
+  //8. промах 2 игрок ->3   -- p2_M
+  const [pl_IsNext, setPlIsNext] = useState("p1_O");
+  let description = "передать ход 2 игроку";
 
-  function changeMove(value) {
-    setMove_pl(value);
+  function handlePlay(move, field) {
+    // arena[i] = "O";
+
+    if (move == "p1_O") {
+      const arena_pl = arena_pl1.slice();
+      arena_pl[field] = "O";
+      setArena_pl1(arena_pl);
+    } else if (move == "p2_O") {
+      const arena_pl = arena_pl2.slice();
+      arena_pl[field] = "O";
+      setArena_pl2(arena_pl);
+    } else if (move == "p2_S") {
+      const arena_pl = arena_pl2.slice();
+      if (arena_pl[field] == "O") {
+        arena_pl[field] = "X";
+      } else {
+        setPlIsNext("p1_S");
+        arena_pl[field] = "M";
+      }
+      setArena_pl2(arena_pl);
+    } else if (move == "p1_S") {
+      const arena_pl = arena_pl1.slice();
+      if (arena_pl[field] == "O") {
+        arena_pl[field] = "X";
+      } else {
+        arena_pl[field] = "M";
+        setPlIsNext("p2_S");
+      }
+      setArena_pl1(arena_pl);
+    }
   }
 
-  function handlePlay(move_pl, field) {
-    if (move_pl == "p1O") {
-      const nextArena = arena_pl1.slice();
-      nextArena[field] = "O";
-      setArena_pl1(nextArena)
+  function jumpTo() {
+    if (pl_IsNext == "p1_O") {
+      description = "передать ход 2 игроку";
+      setPlIsNext("p2_O");
     }
-    else if (move_pl == "p2O") {
-      const nextArena = arena_pl2.slice();
-      nextArena[field] = "O";
-      setArena_pl2(nextArena)
+    if (pl_IsNext == "p2_O") {
+      description = "передать ход 1 игроку";
+      setPlIsNext("p1_S");
+      const arena_pl = arena_pl1.slice();
+      setArena_pl1(arena_pl2);
+      setArena_pl2(arena_pl);
     }
   }
 
-  return (
-    <div className="game">
-      <div key="arena_pl1" className="game-board">
-        <Board pl_IsNext={pl_IsNext} arena={arena_pl1} onPlay={handlePlay} move_pl={"1"} />
+  if (pl_IsNext.indexOf("p1") >= 0) {
+    return (
+      <div className="game">
+        <div className="game-board">
+          <Board pl_IsNext={pl_IsNext} arena={arena_pl1} onPlay={handlePlay} />
+        </div>
+        <button onClick={jumpTo}>{description}</button>
       </div>
-      <div key="arena_pl2" className="game-board">
-        <Board pl_IsNext={pl_IsNext} arena={arena_pl2} onPlay={handlePlay} move_pl={"2"} />
+    );
+  } else {
+    return (
+      <div className="game">
+        <div className="game-board">
+          <Board pl_IsNext={pl_IsNext} arena={arena_pl2} onPlay={handlePlay} />
+        </div>
+        <button onClick={jumpTo}>{description}</button>
       </div>
-      <div className="game-info">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">index</th>
-              <th scope="col">player</th>
-              <th scope="col">jump_to</th>
-            </tr>
-          </thead>
-          {/* <tbody>{moves}</tbody> */}
-        </table>
-      </div>
-    </div>
-  );
+    );
+  }
 }
