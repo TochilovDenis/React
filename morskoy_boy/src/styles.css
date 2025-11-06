@@ -82,7 +82,13 @@ body {
 .sqr_kill {
   background-color: red;
 }
+.sqr_zan {
+  background-color: grey;
+}
 
+.sqr_mozhno {
+  background-color: grey;
+}
 .board-row:after {
   clear: both;
   content: '';

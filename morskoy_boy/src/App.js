@@ -1,27 +1,59 @@
 import { useState } from "react";
 
-function Square({ value, status, onSquareClick }) {
-  if (value == "X") {
-    return <button className="square sqr_hit" onClick={onSquareClick}></button>;
+function Square({ value, status, index, onSquareClick }) {
+  if (value == "B") {
+    return (
+      <button className="square sqr_mozhno" onClick={onSquareClick}>
+        {index}
+      </button>
+    );
+  } else if (value == "Z") {
+    return (
+      <button className="square sqr_zan" onClick={onSquareClick}>
+        {index}
+      </button>
+    );
+  } else if (value == "Y") {
+    return (
+      <button className="square" onClick={onSquareClick}>
+        {index}
+      </button>
+    );
+  } else if (value == "X") {
+    return (
+      <button className="square sqr_hit" onClick={onSquareClick}>
+        {index}
+      </button>
+    );
   } else if (value == "M") {
     return (
-      <button className="square sqr_miss" onClick={onSquareClick}></button>
+      <button className="square sqr_miss" onClick={onSquareClick}>
+        {index}
+      </button>
     );
   } else if (value == "C") {
     return (
-      <button className="square sqr_kill" onClick={onSquareClick}></button>
+      <button className="square sqr_kill" onClick={onSquareClick}>
+        {index}
+      </button>
     );
   } else if (value == null || status == 2) {
-    return <button className="square" onClick={onSquareClick}></button>;
+    return (
+      <button className="square" onClick={onSquareClick}>
+        {index}
+      </button>
+    );
   } else if (value == "O") {
     return (
-      <button className="square  sqr_place" onClick={onSquareClick}></button>
+      <button className="square  sqr_place" onClick={onSquareClick}>
+        {index}
+      </button>
     );
   }
 }
 
 function Board({ pl_IsNext, arena, onPlay, name }) {
-  console.log(arena);
+  // console.log(arena);
 
   let status = "";
   let status_area = 1;
@@ -55,6 +87,7 @@ function Board({ pl_IsNext, arena, onPlay, name }) {
                 key={index}
                 value={arena[index]}
                 status={status_area}
+                index={index}
                 onSquareClick={() => handleClick(index)}
               />
             );
@@ -72,8 +105,9 @@ export default function Game() {
   // M  -    Промах
   // X  -    Попадание
   // C  -    Убит
-  const [arena_pl1, setArena_pl1] = useState(Array(100).fill(null));
-  const [arena_pl2, setArena_pl2] = useState(Array(100).fill(null));
+  const [arena_pl1, setArena_pl1] = useState(Array(100).fill("Y"));
+  const [arena_pl2, setArena_pl2] = useState(Array(100).fill("Y"));
+  const [zan, setzan] = useState(Array(100).fill("Y"));
 
   // Состояние игры/Статус игры
   // состояния pl_IsNext
@@ -95,11 +129,24 @@ export default function Game() {
 
     if (move == "p1_O") {
       const arena_pl = arena_pl1.slice();
-      arena_pl[field] = "O";
-      setArena_pl1(arena_pl);
+      if (arena_pl[field] != "Z") {
+        if (arena_pl[field] == "O") {
+          arena_pl[field] = null;
+        } else {
+          arena_pl[field] = "O";
+        }
+        setzan(check_arena(arena_pl)[0]);
+        setArena_pl1(check_arena(arena_pl)[0]);
+      }
     } else if (move == "p2_O") {
       const arena_pl = arena_pl2.slice();
-      arena_pl[field] = "O";
+      if (arena_pl[field] != "N")
+        if (arena_pl[field] == "O") {
+          arena_pl[field] = null;
+        } else {
+          arena_pl[field] = "O";
+        }
+      console.log(check_arena(arena_pl));
       setArena_pl2(arena_pl);
     } else if (move == "p2_S") {
       const arena_pl = arena_pl2.slice();
@@ -135,12 +182,26 @@ export default function Game() {
       setArena_pl2(arena_pl);
     }
   }
-
+  // if (pl_IsNext.indexOf("S") >= 0) {
+  //   return (
+  //     <div className="game">
+  //       <div className="game-board">
+  //         <Board pl_IsNext={pl_IsNext} arena={arena_pl1} onPlay={handlePlay} />
+  //       </div>
+  //       <button onClick={jumpTo}>{description}</button>
+  //       <div className="game-board">
+  //         <Board pl_IsNext={pl_IsNext} arena={arena_pl2} onPlay={handlePlay} />
+  //       </div>
+  //       <button onClick={jumpTo}>{description}</button>
+  //     </div>
+  //   );
+  // } else
   if (pl_IsNext.indexOf("p1") >= 0) {
     return (
       <div className="game">
         <div className="game-board">
           <Board pl_IsNext={pl_IsNext} arena={arena_pl1} onPlay={handlePlay} />
+          <Board pl_IsNext={pl_IsNext} arena={zan} onPlay={handlePlay} />
         </div>
         <button onClick={jumpTo}>{description}</button>
       </div>
@@ -154,5 +215,95 @@ export default function Game() {
         <button onClick={jumpTo}>{description}</button>
       </div>
     );
+  }
+}
+
+function check_arena(arena) {
+  let zan = Array(100).fill("Y");
+  let battleship = 1;
+  let cruisers = 2;
+  let destroyers = 3;
+  let boats = 4;
+  let num = 0;
+
+  for (let i = 0; i < 100; i++) {
+    num = 0;
+    if (zan[i] != "O" && arena[i] == "O") {
+      get_cr(i);
+      if (num == 4) {
+        battleship--;
+      }
+      if (num == 3) {
+        cruisers--;
+      }
+      if (num == 2) {
+        destroyers--;
+      }
+      if (num == 1) {
+        boats--;
+      }
+    }
+  }
+  console.log(zan);
+  return [zan, battleship, cruisers, destroyers, boats];
+
+  function get_cr(index) {
+    num++;
+    zan[index] = "O";
+
+    if (index + 10 < 100)
+      if (arena[index + 10] == "O") {
+        get_cr(index + 10);
+      }
+
+    if (index + 1 < 100)
+      if (arena[index + 1] == "O") {
+        get_cr(index + 1);
+      }
+  
+    if (num != 4) {
+      zapret_angl(index);
+    } else {
+      zapret_vse(index);
+    }
+  }
+
+  function zapret_angl(index) {
+    add_z(index - 11);
+    add_z(index - 9);
+    add_z(index + 9);
+    add_z(index + 11);
+    // if (index - 11 >= 0 ) zan[index - 11] = "Z";
+    // if (index - 10 >= 0) zan[index - 10] = "Z";
+    // if (index - 9 >= 0) zan[index - 9] = "Z";
+    // if (index - 1 >= 0) zan[index - 1] = "Z";
+    // if (index + 1 < 100) zan[index + 1] = "Z";
+    // if (index + 9 < 100) zan[index + 9] = "Z";
+    // if (index + 10 < 100) zan[index + 10] = "Z";
+    // if (index + 11 < 100) zan[index + 11] = "Z";
+  }
+  function zapret_vse(index) {
+    add_z(index - 11);
+    add_z(index - 10);
+    add_z(index - 9);
+    add_z(index - 1);
+    add_z(index + 1);
+    add_z(index + 9);
+    add_z(index + 10);
+    add_z(index + 11);
+    // if (index - 11 >= 0) zan[index - 11] = "Z";
+    // if (index - 10 >= 0) zan[index - 10] = "Z";
+    // if (index - 9 >= 0) zan[index - 9] = "Z";
+    // if (index - 1 >= 0) zan[index - 1] = "Z";
+    // if (index + 1 < 100) zan[index + 1] = "Z";
+    // if (index + 9 < 100) zan[index + 9] = "Z";
+    // if (index + 10 < 100) zan[index + 10] = "Z";
+    // if (index + 11 < 100) zan[index + 11] = "Z";
+  }
+
+  function add_z(index) {
+    if (index >= 0 && index < 100 && zan[index] != "O") {
+      zan[index] = "Z";
+    }
   }
 }
