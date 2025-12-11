@@ -26,7 +26,7 @@
 
 ```bash
 # 1. Клонируйте репозиторий
-git clone https://github.com/TochilovDenis/React/tree/main/sea-battle-game
+git clone https://github.com/TochilovDenis/React.git
 
 # 2. Перейдите в папку проекта
 cd sea-battle-game
