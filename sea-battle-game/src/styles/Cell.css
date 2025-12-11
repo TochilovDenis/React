@@ -1,0 +1,97 @@
+/* Основные стили клетки */
+.cell {
+  width: 30px; /* Ширина */
+  height: 30px; /* Высота */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Полупрозрачная граница */
+  display: flex;
+  align-items: center; /* Вертикальное выравнивание содержимого */
+  justify-content: center; /* Горизонтальное выравнивание */
+  font-size: 16px; /* Размер шрифта */
+  transition: all 0.2s ease; /* Плавные переходы */
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+}
+
+/* Клетка в компактной версии */
+.board.compact .cell {
+  width: 25px; /* Меньшая ширина */
+  height: 25px; /* Меньшая высота */
+  font-size: 14px; /* Меньший шрифт */
+}
+
+/* Эффект при наведении на любую клетку */
+.cell:hover {
+  background: rgba(255, 255, 255, 0.2); /* Светлее фон */
+}
+
+/* Интерактивная клетка */
+.cell.interactive {
+  cursor: pointer; /* Курсор-указатель */
+}
+
+/* Эффект при наведении на интерактивную клетку */
+.cell.interactive:hover {
+  background: rgba(255, 255, 255, 0.3); /* Еще светлее фон */
+  transform: scale(1.05); /* Увеличение на 5% */
+}
+
+/* Клетка с попаданием */
+.cell.hit {
+  background: #f44336; /* Красный фон */
+  color: white; /* Белый текст */
+}
+
+/* Клетка с промахом */
+.cell.miss {
+  background: rgba(255, 255, 255, 0.5); /* Полупрозрачный белый */
+  color: #333; /* Темный текст */
+}
+
+/* Клетка с потопленным кораблем */
+.cell.sunk {
+  background: #ff9800; /* Оранжевый фон */
+  color: white; /* Белый текст */
+  animation: pulse 1s infinite; /* Анимация пульсации */
+}
+
+/* Клетка с кораблем (видимым) */
+.cell.ship {
+  background: #2196F3; /* Синий фон */
+  color: white; /* Белый текст */
+}
+
+/* Анимация пульсации */
+@keyframes pulse {
+  0% { opacity: 1; } /* Полная видимость */
+  50% { opacity: 0.7; } /* Полупрозрачность */
+  100% { opacity: 1; } /* Полная видимость */
+}
+
+/* Адаптивные стили для планшетов */
+@media (max-width: 768px) {
+  .cell {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .board.compact .cell {
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+  }
+}
+
+/* Адаптивные стили для мобильных телефонов */
+@media (max-width: 480px) {
+  .cell {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+  
+  .board.compact .cell {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}

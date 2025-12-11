@@ -1,0 +1,49 @@
+/* Основные стили игрового поля */
+.board {
+  display: inline-block; /* Блочно-строчный элемент */
+  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный темный фон */
+  padding: 8px; /* Внутренние отступы */
+  border-radius: 8px; /* Скругленные углы */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Полупрозрачная граница */
+}
+
+/* Компактная версия поля */
+.board.compact {
+  padding: 5px; /* Меньшие отступы */
+}
+
+/* Строка поля */
+.board-row {
+  display: flex; /* Флекс-контейнер для клеток в строке */
+}
+
+/* Строка заголовка */
+.board-header {
+  margin-bottom: 3px; /* Отступ снизу */
+}
+
+/* Пустой угол (левая верхняя клетка) */
+.board-corner {
+  width: 25px; /* Ширина */
+  height: 25px; /* Высота */
+}
+
+/* Клетка заголовка (буквы и цифры) */
+.board-header-cell {
+  width: 30px; /* Ширина */
+  height: 25px; /* Высота */
+  display: flex;
+  align-items: center; /* Вертикальное выравнивание */
+  justify-content: center; /* Горизонтальное выравнивание */
+  font-weight: bold; /* Жирный шрифт */
+  color: white; /* Белый цвет текста */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Тень текста */
+  font-size: 0.9rem; /* Размер шрифта */
+}
+
+/* Клетки заголовка в компактной версии */
+.board.compact .board-header-cell {
+  width: 25px; /* Меньшая ширина */
+  height: 20px; /* Меньшая высота */
+  font-size: 0.8rem; /* Меньший шрифт */
+}
