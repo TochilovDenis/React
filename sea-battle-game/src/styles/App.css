@@ -1,0 +1,201 @@
+/* Стили главного контейнера приложения */
+.App {
+  text-align: center; /* Центрирование текста */
+  min-height: 100vh; /* Минимальная высота - весь экран */
+  color: white; /* Цвет текста */
+  padding: 10px; /* Внутренние отступы */
+}
+
+/* Стили заголовка приложения */
+.App-header {
+  padding: 15px; /* Внутренние отступы */
+  background: rgba(0, 0, 0, 0.3); /* Полупрозрачный темный фон */
+  border-radius: 8px; /* Скругленные углы */
+  margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Стили заголовка h1 */
+.App-header h1 {
+  font-size: 2rem; /* Размер шрифта */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Тень текста */
+}
+
+/* Контейнер для игровых полей */
+.boards-container {
+  display: flex; /* Флекс-контейнер */
+  justify-content: center; /* Центрирование по горизонтали */
+  gap: 20px; /* Расстояние между полями */
+  margin: 20px 0; /* Отступы сверху и снизу */
+  flex-wrap: wrap; /* Перенос на следующую строку при необходимости */
+}
+
+/* Стили секции игрового поля */
+.board-section {
+  background: rgba(0, 0, 0, 0.2); /* Полупрозрачный фон */
+  padding: 15px; /* Внутренние отступы */
+  border-radius: 8px; /* Скругленные углы */
+  min-width: 320px; /* Минимальная ширина */
+  max-width: 400px; /* Максимальная ширина */
+}
+
+/* Заголовок секции поля */
+.board-section h2 {
+  margin-bottom: 10px; /* Отступ снизу */
+  font-size: 1.2rem; /* Размер шрифта */
+  color: #fff; /* Цвет текста */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Тень текста */
+}
+
+/* Стили для скрытого поля */
+.hidden-board {
+  position: relative; /* Для позиционирования оверлея */
+  display: inline-block;
+}
+
+/* Оверлей для скрытого поля */
+.board-overlay {
+  position: absolute; /* Абсолютное позиционирование */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85); /* Темный полупрозрачный фон */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /* Поверх поля */
+  border-radius: 8px;
+  backdrop-filter: blur(3px); /* Размытие фона */
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.5s ease; /* Анимация появления */
+}
+
+/* Сообщение на скрытом поле */
+.hidden-message {
+  text-align: center;
+  padding: 20px;
+  max-width: 280px;
+}
+
+.hidden-message h3 {
+  color: #FF9800; /* Оранжевый цвет */
+  margin: 15px 0 10px;
+  font-size: 1.3rem;
+}
+
+.hidden-message p {
+  color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый */
+  margin: 8px 0;
+  line-height: 1.4; /* Межстрочный интервал */
+  font-size: 0.95rem;
+}
+
+/* Иконка замка */
+.lock-icon {
+  font-size: 3rem; /* Большой размер */
+  animation: pulse 2s infinite; /* Анимация пульсации */
+  filter: drop-shadow(0 0 5px rgba(255, 152, 0, 0.5)); /* Тень с эффектом свечения */
+}
+
+/* Статус готовности */
+.ready-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Расстояние между элементами */
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: rgba(76, 175, 80, 0.2); /* Зеленый полупрозрачный фон */
+  border-radius: 8px;
+  border: 1px solid rgba(76, 175, 80, 0.4); /* Зеленая граница */
+}
+
+/* Индикатор статуса */
+.status-indicator {
+  width: 24px;
+  height: 24px;
+  background: #4CAF50; /* Зеленый цвет */
+  color: white;
+  border-radius: 50%; /* Круглая форма */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  animation: bounce 1s infinite; /* Анимация подпрыгивания */
+}
+
+/* Статус компьютера */
+.computer-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* Бейдж статуса */
+.status-badge {
+  width: 20px;
+  height: 20px;
+  background: #4CAF50;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+/* Подзаголовок */
+.subtitle {
+    font-size: 1rem;
+    opacity: 0.8; /* Полупрозрачный */
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Анимация плавного появления */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Анимация пульсации */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Анимация подпрыгивания */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Адаптивные стили для планшетов */
+@media (max-width: 768px) {
+  .board-section {
+    min-width: 280px;
+    padding: 10px;
+  }
+  
+  .boards-container {
+    gap: 15px;
+  }
+  
+  .App-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Адаптивные стили для мобильных телефонов */
+@media (max-width: 480px) {
+  .board-section {
+    min-width: 250px;
+  }
+}
