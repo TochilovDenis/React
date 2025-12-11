@@ -1,0 +1,364 @@
+/* Контейнер панели управления */
+.controls-container {
+  background: rgba(0, 0, 0, 0.4); /* Полупрозрачный темный фон */
+  padding: 25px; /* Внутренние отступы */
+  border-radius: 10px; /* Скругленные углы */
+  margin: 30px auto; /* Центрирование с отступами */
+  max-width: 900px; /* Максимальная ширина */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+/* Статистика */
+.stats {
+  display: flex; /* Флекс-контейнер */
+  justify-content: center; /* Центрирование по горизонтали */
+  gap: 30px; /* Расстояние между элементами */
+  margin-bottom: 25px; /* Отступ снизу */
+  padding: 15px; /* Внутренние отступы */
+  background: rgba(0, 0, 0, 0.3); /* Фон */
+  border-radius: 8px; /* Скругленные углы */
+}
+
+/* Элемент статистики */
+.stat-item {
+  display: flex;
+  flex-direction: column; /* Вертикальное расположение */
+  align-items: center; /* Центрирование по горизонтали */
+  padding: 10px 20px; /* Внутренние отступы */
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+  border-radius: 6px; /* Скругленные углы */
+  min-width: 100px; /* Минимальная ширина */
+}
+
+/* Метка статистики */
+.stat-label {
+  font-size: 0.9rem; /* Размер шрифта */
+  color: #aaa; /* Серый цвет */
+  margin-bottom: 5px; /* Отступ снизу */
+}
+
+/* Значение статистики */
+.stat-value {
+  font-size: 2rem; /* Большой шрифт */
+  font-weight: bold; /* Жирный шрифт */
+  color: white; /* Белый цвет */
+}
+
+/* Значение для размещенных кораблей */
+.stat-value.placed {
+  color: #4CAF50; /* Зеленый цвет */
+}
+
+/* Значение для доступных кораблей */
+.stat-value.available {
+  color: #FF9800; /* Оранжевый цвет */
+}
+
+/* Основное содержимое управления */
+.controls-content {
+  display: grid; /* CSS Grid */
+  grid-template-columns: 1fr 1fr; /* Две колонки */
+  gap: 30px; /* Расстояние между колонками */
+  margin-bottom: 25px; /* Отступ снизу */
+}
+
+/* Стили для секций управления */
+.ship-selector, .placement-controls, .battle-controls, .game-controls {
+  padding: 20px; /* Внутренние отступы */
+  background: rgba(0, 0, 0, 0.3); /* Полупрозрачный фон */
+  border-radius: 8px; /* Скругленные углы */
+}
+
+/* Заголовки секций */
+.ship-selector h4, .placement-controls h4, .battle-controls h4, .game-controls h4 {
+  color: #FF9800; /* Оранжевый цвет */
+  margin-bottom: 15px; /* Отступ снизу */
+  font-size: 1.1rem; /* Размер шрифта */
+}
+
+/* Список кораблей */
+.ships-list {
+  display: flex;
+  flex-direction: column; /* Вертикальное расположение */
+  gap: 10px; /* Расстояние между элементами */
+  max-height: 300px; /* Максимальная высота */
+  overflow-y: auto; /* Вертикальная прокрутка */
+  padding: 10px; /* Внутренние отступы */
+}
+
+/* Элемент корабля в списке */
+.ship-item {
+  display: flex;
+  align-items: center;
+  padding: 12px; /* Внутренние отступы */
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+  border-radius: 6px; /* Скругленные углы */
+  cursor: pointer; /* Курсор-указатель */
+  transition: all 0.3s ease; /* Плавные переходы */
+  border: 2px solid transparent; /* Прозрачная граница */
+}
+
+/* Эффект при наведении на элемент корабля */
+.ship-item:hover {
+  background: rgba(255, 255, 255, 0.15); /* Светлее фон */
+  transform: translateX(5px); /* Сдвиг вправо */
+}
+
+/* Выбранный элемент корабля */
+.ship-item.selected {
+  border-color: #4CAF50; /* Зеленая граница */
+  background: rgba(76, 175, 80, 0.2); /* Полупрозрачный зеленый фон */
+}
+
+/* Размещенный элемент корабля */
+.ship-item.placed {
+  opacity: 0.6; /* Полупрозрачность */
+  cursor: not-allowed; /* Курсор "недоступно" */
+}
+
+/* Отключение эффекта при наведении на размещенный корабль */
+.ship-item.placed:hover {
+  transform: none; /* Без сдвига */
+  background: rgba(255, 255, 255, 0.1); /* Оригинальный фон */
+}
+
+/* Предпросмотр корабля (визуальное представление) */
+.ship-preview {
+  font-size: 1.2rem; /* Размер шрифта */
+  margin-right: 15px; /* Отступ справа */
+  color: #2196F3; /* Синий цвет */
+  min-width: 80px; /* Минимальная ширина */
+}
+
+/* Информация о корабле */
+.ship-info {
+  flex-grow: 1; /* Занимает все доступное пространство */
+  display: flex;
+  flex-direction: column; /* Вертикальное расположение */
+}
+
+/* Имя корабля */
+.ship-name {
+  font-weight: bold; /* Жирный шрифт */
+  color: white; /* Белый цвет */
+  margin-bottom: 3px; /* Небольшой отступ снизу */
+}
+
+/* Размер корабля */
+.ship-size {
+  font-size: 0.9rem; /* Меньший шрифт */
+  color: #aaa; /* Серый цвет */
+}
+
+/* Бейдж для размещенных кораблей */
+.placed-badge {
+  margin-left: auto; /* Автоматический отступ слева (прижимает к правому краю) */
+  color: #4CAF50; /* Зеленый цвет */
+  font-size: 1.5rem; /* Большой шрифт */
+  font-weight: bold; /* Жирный шрифт */
+}
+
+/* Контейнер кнопок расстановки */
+.placement-buttons, .control-buttons {
+  display: flex;
+  flex-direction: column; /* Вертикальное расположение */
+  gap: 15px; /* Расстояние между кнопками */
+}
+
+/* Основные стили кнопок управления */
+.control-btn {
+  padding: 15px 20px; /* Внутренние отступы */
+  border: none; /* Без границы */
+  border-radius: 8px; /* Скругленные углы */
+  font-size: 16px; /* Размер шрифта */
+  font-weight: bold; /* Жирный шрифт */
+  cursor: pointer; /* Курсор-указатель */
+  transition: all 0.3s ease; /* Плавные переходы */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Расстояние между иконкой и текстом */
+}
+
+/* Эффект при наведении на кнопку */
+.control-btn:hover {
+  transform: translateY(-3px); /* Поднимаем кнопку */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Тень */
+}
+
+/* Эффект при нажатии на кнопку */
+.control-btn:active {
+  transform: translateY(-1px); /* Небольшой подъем */
+}
+
+/* Кнопка поворота корабля */
+.rotate-btn {
+  background: linear-gradient(135deg, #2196F3, #1976D2); /* Синий градиент */
+  color: white; /* Белый текст */
+}
+
+/* Кнопка случайной расстановки */
+.random-btn {
+  background: linear-gradient(135deg, #FF9800, #F57C00); /* Оранжевый градиент */
+  color: white; /* Белый текст */
+}
+
+/* Кнопка сброса */
+.reset-btn {
+  background: linear-gradient(135deg, #f44336, #d32f2f); /* Красный градиент */
+  color: white; /* Белый текст */
+}
+
+/* Кнопка продолжения игры */
+.continue-btn {
+  background: linear-gradient(135deg, #4CAF50, #388E3C); /* Зеленый градиент */
+  color: white; /* Белый текст */
+}
+
+/* Подсказки для расстановки и боя */
+.placement-hint, .battle-hint {
+  margin-top: 15px; /* Отступ сверху */
+  padding: 15px; /* Внутренние отступы */
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+  border-radius: 6px; /* Скругленные углы */
+  font-size: 0.95rem; /* Размер шрифта */
+  line-height: 1.5; /* Межстрочный интервал */
+}
+
+.placement-hint p, .battle-hint p {
+  margin: 8px 0; /* Отступы сверху и снизу */
+  color: #ddd; /* Светло-серый цвет */
+}
+
+/* Секция с правилами игры */
+.game-rules {
+  padding: 20px; /* Внутренние отступы */
+  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный темный фон */
+  border-radius: 8px; /* Скругленные углы */
+  border-left: 4px solid #4CAF50; /* Зеленая левая граница */
+}
+
+.game-rules h4 {
+  color: #4CAF50; /* Зеленый цвет */
+  margin-bottom: 15px; /* Отступ снизу */
+  font-size: 1.2rem; /* Размер шрифта */
+}
+
+/* Список правил */
+.rules-list {
+  list-style: none; /* Без стандартных маркеров */
+  padding: 0; /* Без отступов */
+}
+
+.rules-list li {
+  padding: 10px 0; /* Вертикальные отступы */
+  padding-left: 30px; /* Отступ слева для кастомных маркеров */
+  position: relative; /* Для позиционирования кастомных маркеров */
+  color: #ddd; /* Светло-серый цвет */
+  line-height: 1.5; /* Межстрочный интервал */
+}
+
+/* Кастомные маркеры для списка правил */
+.rules-list li:before {
+  content: '✓'; /* Галочка */
+  position: absolute; /* Абсолютное позиционирование */
+  left: 0; /* Прижимаем к левому краю */
+  color: #4CAF50; /* Зеленый цвет */
+  font-weight: bold; /* Жирный шрифт */
+}
+
+/* Уведомление о готовности компьютера */
+.computer-ready-notice {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Расстояние между иконкой и текстом */
+  padding: 15px; /* Внутренние отступы */
+  margin: 15px 0; /* Отступы сверху и снизу */
+  background: rgba(255, 152, 0, 0.1); /* Полупрозрачный оранжевый фон */
+  border-radius: 8px; /* Скругленные углы */
+  border-left: 4px solid #FF9800; /* Оранжевая левая граница */
+  animation: slideInLeft 0.5s ease; /* Анимация появления */
+}
+
+.notice-icon {
+  font-size: 2rem; /* Большой размер иконки */
+}
+
+.notice-text {
+  flex-grow: 1; /* Занимает все доступное пространство */
+}
+
+.notice-text strong {
+  color: #FF9800; /* Оранжевый цвет */
+  font-size: 1.1rem; /* Размер шрифта */
+}
+
+.notice-text p {
+  margin-top: 5px; /* Отступ сверху */
+  color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый */
+  font-size: 0.9rem; /* Размер шрифта */
+}
+
+/* Подсписок в правилах игры */
+.sublist {
+    margin-left: 20px; /* Отступ слева */
+    font-size: 0.9rem; /* Меньший шрифт */
+}
+
+.sublist ul {
+    list-style: none; /* Без стандартных маркеров */
+    padding-left: 10px; /* Небольшой отступ слева */
+}
+
+.sublist li {
+    padding: 3px 0; /* Маленькие отступы */
+    color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый */
+}
+
+/* Кастомные маркеры для подсписка */
+.sublist li:before {
+    content: '•'; /* Точка */
+    color: #4CAF50; /* Зеленый цвет */
+    margin-right: 8px; /* Отступ справа */
+}
+
+/* Анимация появления с левой стороны */
+@keyframes slideInLeft {
+  from {
+    opacity: 0; /* Полная прозрачность */
+    transform: translateX(-20px); /* Сдвинуто влево */
+  }
+  to {
+    opacity: 1; /* Полная видимость */
+    transform: translateX(0); /* На обычной позиции */
+  }
+}
+
+/* Адаптивные стили для планшетов */
+@media (max-width: 768px) {
+  .controls-content {
+    grid-template-columns: 1fr; /* Одна колонка */
+    gap: 20px; /* Меньшее расстояние */
+  }
+  
+  .stats {
+    flex-direction: column; /* Вертикальное расположение */
+    align-items: center; /* Центрирование */
+    gap: 15px; /* Расстояние между элементами */
+  }
+  
+  .stat-item {
+    width: 100%; /* Полная ширина */
+    max-width: 200px; /* Максимальная ширина */
+  }
+  
+  .control-btn {
+    padding: 12px 15px; /* Меньшие отступы */
+    font-size: 14px; /* Меньший шрифт */
+  }
+  
+  .ship-preview {
+    font-size: 1rem; /* Меньший шрифт */
+    min-width: 60px; /* Меньшая минимальная ширина */
+  }
+}

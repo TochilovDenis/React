@@ -1,0 +1,268 @@
+/* Основной контейнер информации о игре */
+.game-info {
+  background: rgba(0, 0, 0, 0.4); /* Полупрозрачный темный фон */
+  padding: 20px; /* Внутренние отступы */
+  border-radius: 10px; /* Скругленные углы */
+  margin: 20px auto; /* Центрирование с отступами */
+  max-width: 800px; /* Максимальная ширина */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+/* Заголовок фазы игры */
+.game-phase h3 {
+  color: #4CAF50; /* Зеленый цвет */
+  margin-bottom: 15px; /* Отступ снизу */
+  text-align: center; /* Центрирование текста */
+  font-size: 1.4rem; /* Размер шрифта */
+}
+
+/* Контейнер информации о игроке */
+.player-info {
+  display: flex; /* Флекс-контейнер */
+  justify-content: space-between; /* Распределение пространства */
+  align-items: center; /* Выравнивание по вертикали */
+  margin-bottom: 20px; /* Отступ снизу */
+  flex-wrap: wrap; /* Перенос при необходимости */
+  gap: 20px; /* Расстояние между элементами */
+}
+
+/* Статус игрока */
+.player-status {
+  display: flex;
+  align-items: center; /* Выравнивание по вертикали */
+  gap: 10px; /* Расстояние между меткой и значением */
+}
+
+/* Метка статуса */
+.status-label {
+  font-weight: bold; /* Жирный шрифт */
+  color: #aaa; /* Серый цвет */
+}
+
+/* Значение статуса */
+.status-value {
+  padding: 8px 16px; /* Внутренние отступы */
+  border-radius: 20px; /* Закругленные углы (овал) */
+  font-weight: bold; /* Жирный шрифт */
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+}
+
+/* Статус игрока (когда ход игрока) */
+.status-value.player {
+  background: #4CAF50; /* Зеленый фон */
+  color: white; /* Белый текст */
+  animation: pulse 2s infinite; /* Анимация пульсации */
+}
+
+/* Статус компьютера (когда ход компьютера) */
+.status-value.computer {
+  background: #2196F3; /* Синий фон */
+  color: white; /* Белый текст */
+}
+
+/* Табло счета */
+.score-board {
+  display: flex; /* Флекс-контейнер */
+  gap: 30px; /* Расстояние между счетами */
+}
+
+/* Контейнер счета */
+.score {
+  padding: 12px 24px; /* Внутренние отступы */
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+  border-radius: 8px; /* Скругленные углы */
+  text-align: center; /* Центрирование текста */
+  min-width: 150px; /* Минимальная ширина */
+}
+
+/* Счет игрока */
+.player-score {
+  border-left: 4px solid #4CAF50; /* Зеленая левая граница */
+}
+
+/* Счет компьютера */
+.computer-score {
+  border-left: 4px solid #2196F3; /* Синяя левая граница */
+}
+
+/* Метка счета */
+.score-label {
+  display: block; /* Блочный элемент */
+  font-size: 0.9rem; /* Размер шрифта */
+  color: #aaa; /* Серый цвет */
+  margin-bottom: 5px; /* Отступ снизу */
+}
+
+/* Значение счета */
+.score-value {
+  font-size: 2rem; /* Большой шрифт */
+  font-weight: bold; /* Жирный шрифт */
+  color: white; /* Белый цвет */
+}
+
+/* Информация о корабле */
+.ship-info {
+  background: rgba(33, 150, 243, 0.2); /* Полупрозрачный синий фон */
+  padding: 15px; /* Внутренние отступы */
+  border-radius: 8px; /* Скругленные углы */
+  margin: 15px 0; /* Отступы сверху и снизу */
+  display: flex;
+  justify-content: space-between; /* Распределение пространства */
+  align-items: center; /* Выравнивание по вертикали */
+  flex-wrap: wrap; /* Перенос при необходимости */
+  gap: 10px; /* Расстояние между элементами */
+}
+
+.ship-info strong {
+  color: #2196F3; /* Синий цвет */
+}
+
+/* Индикатор ориентации корабля */
+.orientation {
+  padding: 5px 10px; /* Внутренние отступы */
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+  border-radius: 5px; /* Скругленные углы */
+  font-style: italic; /* Курсив */
+}
+
+/* Секция сообщений игры */
+.game-messages {
+  margin-top: 20px; /* Отступ сверху */
+  background: rgba(0, 0, 0, 0.3); /* Полупрозрачный темный фон */
+  padding: 15px; /* Внутренние отступы */
+  border-radius: 8px; /* Скругленные углы */
+}
+
+.game-messages h4 {
+  color: #FF9800; /* Оранжевый цвет */
+  margin-bottom: 10px; /* Отступ снизу */
+}
+
+/* Список сообщений */
+.messages-list {
+  max-height: 150px; /* Максимальная высота */
+  overflow-y: auto; /* Вертикальная прокрутка */
+  padding: 10px; /* Внутренние отступы */
+  background: rgba(0, 0, 0, 0.2); /* Полупрозрачный темный фон */
+  border-radius: 5px; /* Скругленные углы */
+}
+
+/* Отдельное сообщение */
+.message {
+  padding: 8px 12px; /* Внутренние отступы */
+  margin: 5px 0; /* Отступы сверху и снизу */
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+  border-radius: 5px; /* Скругленные углы */
+  border-left: 3px solid #FF9800; /* Оранжевая левая граница */
+  animation: slideIn 0.3s ease; /* Анимация появления */
+}
+
+/* Первое сообщение (выделенное) */
+.message:first-child {
+  background: rgba(255, 255, 255, 0.15); /* Светлее фон */
+  font-weight: bold; /* Жирный шрифт */
+}
+
+/* Результат игры */
+.game-result {
+  margin-top: 20px; /* Отступ сверху */
+  text-align: center; /* Центрирование текста */
+  animation: fadeIn 0.5s ease; /* Анимация появления */
+}
+
+/* Баннер результата */
+.result-banner {
+  font-size: 2rem; /* Очень большой шрифт */
+  padding: 20px; /* Внутренние отступы */
+  border-radius: 10px; /* Скругленные углы */
+  margin-bottom: 15px; /* Отступ снизу */
+  animation: bounce 1s infinite; /* Анимация подпрыгивания */
+}
+
+/* Баннер при победе игрока */
+.result-banner.player {
+  background: linear-gradient(135deg, #4CAF50, #45a049); /* Зеленый градиент */
+  color: white; /* Белый текст */
+}
+
+/* Баннер при победе компьютера */
+.result-banner.computer {
+  background: linear-gradient(135deg, #f44336, #d32f2f); /* Красный градиент */
+  color: white; /* Белый текст */
+}
+
+/* Текст результата */
+.result-text {
+  font-size: 1.2rem; /* Большой шрифт */
+  opacity: 0.9; /* Небольшая прозрачность */
+}
+
+/* Отладочная информация */
+.debug-info {
+  margin-top: 15px; /* Отступ сверху */
+  padding: 10px; /* Внутренние отступы */
+  background: rgba(255, 0, 0, 0.1); /* Полупрозрачный красный фон */
+  border-radius: 5px; /* Скругленные углы */
+  border: 1px dashed rgba(255, 0, 0, 0.3); /* Красная пунктирная граница */
+  font-size: 0.8rem; /* Меньший шрифт */
+  color: rgba(255, 255, 255, 0.7); /* Полупрозрачный белый текст */
+}
+
+.debug-stats {
+  display: flex;
+  justify-content: space-around; /* Равномерное распределение */
+  flex-wrap: wrap; /* Перенос при необходимости */
+  gap: 10px; /* Расстояние между элементами */
+}
+
+/* Анимация пульсации */
+@keyframes pulse {
+  0% { opacity: 1; } /* Полная видимость */
+  50% { opacity: 0.7; } /* Полупрозрачность */
+  100% { opacity: 1; } /* Полная видимость */
+}
+
+/* Анимация появления сверху */
+@keyframes slideIn {
+  from {
+    opacity: 0; /* Полная прозрачность */
+    transform: translateY(-10px); /* Сдвинуто вверх */
+  }
+  to {
+    opacity: 1; /* Полная видимость */
+    transform: translateY(0); /* На обычной позиции */
+  }
+}
+
+/* Анимация плавного появления */
+@keyframes fadeIn {
+  from { opacity: 0; } /* Полная прозрачность */
+  to { opacity: 1; } /* Полная видимость */
+}
+
+/* Анимация подпрыгивания */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); } /* На обычной позиции */
+  50% { transform: translateY(-10px); } /* Поднято вверх */
+}
+
+/* Адаптивные стили для планшетов */
+@media (max-width: 768px) {
+  .player-info {
+    flex-direction: column; /* Вертикальное расположение */
+    align-items: stretch; /* Растягивание на всю ширину */
+  }
+  
+  .score-board {
+    justify-content: center; /* Центрирование */
+  }
+  
+  .score {
+    min-width: 120px; /* Меньшая минимальная ширина */
+  }
+  
+  .ship-info {
+    flex-direction: column; /* Вертикальное расположение */
+    align-items: flex-start; /* Выравнивание по левому краю */
+  }
+}
