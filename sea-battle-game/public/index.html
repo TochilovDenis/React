@@ -1,0 +1,59 @@
+<!-- Определение типа документа HTML5 -->
+<!DOCTYPE html>
+<!-- Начало HTML документа с указанием языка (русский) -->
+<html lang="ru">
+<head>
+  <!-- Мета-теги для корректного отображения -->
+  <meta charset="UTF-8"> <!-- Кодировка UTF-8 для поддержки русского языка -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Адаптивный дизайн для мобильных устройств -->
+  
+  <!-- Заголовок страницы в браузере -->
+  <title>Морской Бой - React</title>
+  
+  <!-- Встроенные стили для начальной загрузки -->
+  <style>
+    /* Сброс стандартных отступов и использование border-box для всех элементов */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Основные стили для body */
+    body {
+      /* Использование системных шрифтов для лучшей читаемости */
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+      -webkit-font-smoothing: antialiased; /* Сглаживание текста в WebKit браузерах */
+      -moz-osx-font-smoothing: grayscale; /* Сглаживание текста в Firefox */
+      
+      /* Градиентный фон от синего к фиолетовому */
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh; /* Минимальная высота - весь экран */
+      padding: 20px; /* Отступы вокруг контента */
+    }
+    
+    /* Контейнер для React приложения */
+    #root {
+      max-width: 1200px; /* Максимальная ширина контента */
+      margin: 0 auto; /* Центрирование по горизонтали */
+    }
+    
+    /* Стили для сообщения о загрузке */
+    .loading {
+      color: white; /* Белый текст */
+      text-align: center; /* Центрирование текста */
+      font-size: 24px; /* Размер шрифта */
+      margin-top: 100px; /* Отступ сверху */
+    }
+  </style>
+</head>
+<body>
+  <!-- Контейнер, в который React будет монтировать приложение -->
+  <div id="root">
+    <!-- Сообщение о загрузке, которое показывается до инициализации React -->
+    <div class="loading">Загрузка игры...</div>
+  </div>
+</body>
+</html>
